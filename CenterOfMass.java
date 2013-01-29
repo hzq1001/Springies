@@ -1,5 +1,6 @@
 package simulation;
 
+import java.awt.Dimension;
 import java.util.List;
 
 import util.Location;
@@ -17,10 +18,15 @@ public class CenterOfMass extends Force {
 	}
 	
 	@Override
-	public void apply(List<Mass> masses) {
+	public void apply(List<Mass> masses, Dimension bounds) {
+		// apply a force to each mass according to its distance from the center of the masses
 		com = calculateCOM(masses);
 		for(Mass m : masses) {
-			//Vector force = new Vector(Vector.angleBetween(m., dy))
+			double dx = com.getX() - m.getX();
+			double dy = com.getY() - m.getY();
+			double r = Vector.distanceBetween(dx, dy);
+			Vector force = new Vector(Vector.angleBetween(dx, dy), magnitude/Math.pow(r, exponent));
+			m.applyForce(force);
 		}
 		
 

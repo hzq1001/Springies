@@ -2,8 +2,6 @@ package simulation;
 
 import java.awt.Dimension;
 
-import view.Canvas;
-
 public class Muscle extends Spring {
 	
 	private double myRestingLength;

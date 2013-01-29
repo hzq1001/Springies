@@ -21,6 +21,9 @@ public class Factory {
 	//environment keywords
 	private static final String GRAVITY_KEYWORD = "gravity";
 	private static final String VISCOSITY_KEYWORD = "viscosity";
+	private static final String CENTERMASS_KEYWORD = "centermass";
+	private static final String WALLREPULSION_KEYWORD = "wall";
+	
 	// mass IDs
 	Map<Integer, Mass> myMasses = new HashMap<Integer, Mass>();
 
@@ -74,6 +77,14 @@ public class Factory {
 					else if (VISCOSITY_KEYWORD.equals(type)) {
 						model.add(viscosityCommand(line));
 					}
+					
+					else if (CENTERMASS_KEYWORD.equals(type)) {
+						model.add(centermassCommand(line));
+					}
+					
+					else if (WALLREPULSION_KEYWORD.equals(type)) {
+						model.add(wallRepulsionCommand(line));
+					}
 				}
 			}
 			input.close();
@@ -125,5 +136,18 @@ public class Factory {
 	private Force viscosityCommand (Scanner line) {
 		double scale = line.nextDouble();
 		return new Viscosity(scale);
+	}
+	
+	private Force centermassCommand (Scanner line) {
+		double magnitude = line.nextDouble();
+		double exponent = line.nextDouble();
+		return new CenterOfMass(magnitude, exponent);
+	}
+	
+	private Force wallRepulsionCommand (Scanner line) {
+		int id = line.nextInt();
+		double magnitude = line.nextDouble();
+		double exponent = line.nextDouble();
+		return new WallRepulsion(id, magnitude, exponent);
 	}
 }

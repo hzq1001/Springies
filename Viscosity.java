@@ -1,5 +1,6 @@
 package simulation;
 
+import java.awt.Dimension;
 import java.util.List;
 
 import util.Vector;
@@ -14,7 +15,7 @@ public class Viscosity extends Force {
 	}
 	
 	@Override
-	public void apply(List<Mass> masses) {
+	public void apply(List<Mass> masses, Dimension bounds) {
 		
 		for (Mass m : masses) {
 			//apply a force opposite to the velocity of the mass scaled by the viscosity's scale value

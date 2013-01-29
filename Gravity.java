@@ -1,5 +1,6 @@
 package simulation;
 
+import java.awt.Dimension;
 import java.util.List;
 
 import util.Vector;
@@ -14,7 +15,7 @@ public class Gravity extends Force {
 	}
 	
 	@Override
-	public void apply(List<Mass> masses) {
+	public void apply(List<Mass> masses, Dimension bounds) {
 		for (Mass m : masses)
 			m.applyForce(forceVector);
 	}

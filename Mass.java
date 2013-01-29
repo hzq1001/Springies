@@ -37,16 +37,15 @@ public class Mass extends Sprite {
      */
     @Override
     public void update (double elapsedTime, Dimension bounds) {
-        applyForce(getBounce(bounds));
-        // convert force back into Mover's velocity
-        getVelocity().sum(myAcceleration);
-        myAcceleration.reset();
-        // move mass by velocity
-        super.update(elapsedTime, bounds);
-    }
-    
-    public double getMass() {
-    	return myMass;
+    	//maybe we do not need FixedMass class
+    	if(myMass > 0){
+    		applyForce(getBounce(bounds));
+    		// convert force back into Mover's velocity
+    		getVelocity().sum(myAcceleration);
+    		myAcceleration.reset();
+    		// move mass by velocity
+    		super.update(elapsedTime, bounds);
+    	}
     }
 
     /**
@@ -75,8 +74,7 @@ public class Mass extends Sprite {
 
 
     // check for move out of bounds
-    private Vector getBounce (Dimension bounds) { //TODO: this code is not working correctly
-    	
+    private Vector getBounce (Dimension bounds) {
         final double IMPULSE_MAGNITUDE = 2;
         Vector impulse = new Vector();
         if (getLeft() < 0) {
@@ -88,11 +86,15 @@ public class Mass extends Sprite {
         if (getTop() < 0) {
             impulse = new Vector(DOWN_DIRECTION, IMPULSE_MAGNITUDE);
         }
-        else if (getBottom() > bounds.height) { //&& super.getVelocity().getYChange() > 0
+        else if (getBottom() > bounds.height) {
             impulse = new Vector(UP_DIRECTION, IMPULSE_MAGNITUDE);
         }
         impulse.scale(getVelocity().getRelativeMagnitude(impulse));
-        
         return impulse;
     }
+
+	public double getMass() {
+		// TODO Auto-generated method stub
+		return myMass;
+	}
 }

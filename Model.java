@@ -47,11 +47,12 @@ public class Model {
      */
     public void update (double elapsedTime) {
     	
+    	Dimension bounds = myView.getSize();
+    	
     	for (Force f : myForces) {
-    		f.apply(myMasses);
+    		f.apply(myMasses, bounds);
     	}
     	
-        Dimension bounds = myView.getSize();
         for (Spring s : mySprings) {
             s.update(elapsedTime, bounds);
         }
