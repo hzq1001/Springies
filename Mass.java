@@ -61,7 +61,9 @@ public class Mass extends Sprite {
      * Use the given force to change this mass's acceleration.
      */
     public void applyForce (Vector force) {
-        myAcceleration.sum(force);
+    	//only apply forces to the mass if it has a positive mass, I.E. it is not a fixed mass
+    	if(myMass > 0)
+    		myAcceleration.sum(force);
     }
 
     /**
