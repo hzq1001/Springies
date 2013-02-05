@@ -2,6 +2,7 @@ package simulation;
 
 import java.awt.Dimension;
 import java.util.List;
+import java.util.Scanner;
 
 import util.Location;
 import util.Vector;
@@ -15,6 +16,12 @@ public class CenterOfMass extends Force {
 	public CenterOfMass(double magnitude, double exponent) {
 		this.magnitude = magnitude;
 		this.exponent = exponent;
+	}
+	
+	public static CenterOfMass generator(Scanner line){
+		double magnitude = line.nextDouble();
+		double exponent = line.nextDouble();
+		return new CenterOfMass(magnitude, exponent);
 	}
 	
 	@Override

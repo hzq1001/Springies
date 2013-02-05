@@ -2,8 +2,11 @@ package simulation;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Map;
+
 import view.Canvas;
 
 
@@ -19,6 +22,7 @@ public class Model {
     private List<Mass> myMasses;
     private List<Spring> mySprings;
     private List<Force> myForces;
+ 	private Map<Integer, Mass> myMassesMap;
 
     /**
      * Create a game of the given size with the given display for its shapes.
@@ -28,6 +32,7 @@ public class Model {
         myMasses = new ArrayList<Mass>();
         mySprings = new ArrayList<Spring>();
         myForces = new ArrayList<Force>();
+        setMyMassesMap(new HashMap<Integer, Mass>());
     }
 
     /**
@@ -81,4 +86,14 @@ public class Model {
     public void add (Force force) {
         myForces.add(force);
     }
+
+	public Map<Integer, Mass> getMyMassesMap() {
+		return myMassesMap;
+	}
+
+	public void setMyMassesMap(Map<Integer, Mass> myMassesMap) {
+		this.myMassesMap = myMassesMap;
+	}
+
+	
 }

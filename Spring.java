@@ -3,6 +3,8 @@ package simulation;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.util.Scanner;
+
 import util.Location;
 import util.Pixmap;
 import util.Sprite;
@@ -61,6 +63,14 @@ public class Spring extends Sprite {
         setCenter(getCenter(myStart, myEnd));
         setSize(getSize(myStart, myEnd));
         setVelocity(Vector.angleBetween(dx, dy), 0);
+    }
+    
+    public static Spring generator (Scanner line, Model model) {
+    	Mass m1 = model.getMyMassesMap().get(line.nextInt());
+		Mass m2 = model.getMyMassesMap().get(line.nextInt());
+		double restLength = line.nextDouble();
+		double ks = line.nextDouble();
+		return new Spring(m1, m2, restLength, ks);
     }
 
     /**

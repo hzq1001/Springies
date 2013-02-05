@@ -2,6 +2,7 @@ package simulation;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.util.Scanner;
 
 import util.Vector;
 
@@ -22,6 +23,16 @@ public class Muscle extends Spring {
 		myAmplitude = amplitude;
 		myPeriod = period;
 		myAngle = 0;
+	}
+	
+	public static Muscle generator (Scanner line, Model model){
+		Mass m1 = model.getMyMassesMap().get(line.nextInt());
+		Mass m2 = model.getMyMassesMap().get(line.nextInt());
+		double restLength = line.nextDouble();
+		double ks = line.nextDouble();
+		double amplitude = line.nextDouble();
+		double period = line.nextDouble();
+		return new Muscle(m1, m2, restLength, ks, amplitude, period);
 	}
 
 	@Override

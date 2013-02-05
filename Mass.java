@@ -3,6 +3,8 @@ package simulation;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.util.Scanner;
+
 import util.Location;
 import util.Pixmap;
 import util.Sprite;
@@ -31,7 +33,16 @@ public class Mass extends Sprite {
         myMass = mass;
         myAcceleration = new Vector();
     }
-
+    
+    public static Mass generator (Scanner line, Model model) {
+    	int id = line.nextInt();
+		double x = line.nextDouble();
+		double y = line.nextDouble();
+		double mass = line.nextDouble();
+		Mass result = new Mass(x, y, mass);
+		model.getMyMassesMap().put(id,  result);
+		return result;
+    }
     /**
      * XXX.
      */
@@ -61,9 +72,7 @@ public class Mass extends Sprite {
      * Use the given force to change this mass's acceleration.
      */
     public void applyForce (Vector force) {
-    	//only apply forces to the mass if it has a positive mass, I.E. it is not a fixed mass
-    	if(myMass > 0)
-    		myAcceleration.sum(force);
+        myAcceleration.sum(force);
     }
 
     /**

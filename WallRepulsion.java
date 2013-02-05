@@ -2,6 +2,7 @@ package simulation;
 
 import java.awt.Dimension;
 import java.util.List;
+import java.util.Scanner;
 
 import util.Vector;
 
@@ -26,6 +27,13 @@ public class WallRepulsion extends Force {
 		this.id = id;
 		this.magnitude = magnitude;
 		this.exponent = exponent;
+	}
+	
+	public static WallRepulsion generator(Scanner line){
+		int id = line.nextInt();
+		double magnitude = line.nextDouble();
+		double exponent = line.nextDouble();
+		return new WallRepulsion(id, magnitude, exponent);
 	}
 	
 	@Override

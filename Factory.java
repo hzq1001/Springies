@@ -24,8 +24,6 @@ public class Factory {
 	private static final String CENTERMASS_KEYWORD = "centermass";
 	private static final String WALLREPULSION_KEYWORD = "wall";
 	
-	// mass IDs
-	Map<Integer, Mass> myMasses = new HashMap<Integer, Mass>();
 
 
 	public void loadModel (Model model, File dataFile) {
@@ -45,13 +43,13 @@ public class Factory {
 				if (line.hasNext()) {
 					String type = line.next();
 					if (MASS_KEYWORD.equals(type)) {
-						model.add(massCommand(line));
+						model.add(Mass.generator(line, model));
 					}
 					else if (SPRING_KEYWORD.equals(type)) {
-						model.add(springCommand(line));
+						model.add(Spring.generator(line, model));
 					}
 					else if (MUSCLE_KEYWORD.equals(type)) {
-						model.add(muscleCommand(line));
+						model.add(Muscle.generator(line, model));
 					}
 				}
 			}
@@ -72,18 +70,18 @@ public class Factory {
 				if (line.hasNext()) {
 					String type = line.next();
 					if (GRAVITY_KEYWORD.equals(type)) {
-						model.add(gravityCommand(line));
+						model.add(Gravity.generator(line));
 					}
 					else if (VISCOSITY_KEYWORD.equals(type)) {
-						model.add(viscosityCommand(line));
+						model.add(Viscosity.generator(line));
 					}
 					
 					else if (CENTERMASS_KEYWORD.equals(type)) {
-						model.add(centermassCommand(line));
+						model.add(CenterOfMass.generator(line));
 					}
 					
 					else if (WALLREPULSION_KEYWORD.equals(type)) {
-						model.add(wallRepulsionCommand(line));
+						model.add(WallRepulsion.generator(line));
 					}
 				}
 			}
@@ -96,58 +94,4 @@ public class Factory {
 		}
 	}
 
-	// create mass from formatted data
-	private Mass massCommand (Scanner line) {
-		int id = line.nextInt();
-		double x = line.nextDouble();
-		double y = line.nextDouble();
-		double mass = line.nextDouble();
-		Mass result = new Mass(x, y, mass);
-		myMasses.put(id,  result);
-		return result;
-	}
-
-	// create spring from formatted data
-	private Spring springCommand (Scanner line) {
-		Mass m1 = myMasses.get(line.nextInt());
-		Mass m2 = myMasses.get(line.nextInt());
-		double restLength = line.nextDouble();
-		double ks = line.nextDouble();
-		return new Spring(m1, m2, restLength, ks);
-	}
-
-	// create muscle from formatted data
-	private Spring muscleCommand (Scanner line) {
-		Mass m1 = myMasses.get(line.nextInt());
-		Mass m2 = myMasses.get(line.nextInt());
-		double restLength = line.nextDouble();
-		double ks = line.nextDouble();
-		double amplitude = line.nextDouble();
-		double period = line.nextDouble();
-		return new Muscle(m1, m2, restLength, ks, amplitude, period);
-	}
-
-	private Force gravityCommand (Scanner line) {
-		double angle = line.nextDouble();
-		double magnitude = line.nextDouble();
-		return new Gravity(angle, magnitude);
-	}
-	
-	private Force viscosityCommand (Scanner line) {
-		double scale = line.nextDouble();
-		return new Viscosity(scale);
-	}
-	
-	private Force centermassCommand (Scanner line) {
-		double magnitude = line.nextDouble();
-		double exponent = line.nextDouble();
-		return new CenterOfMass(magnitude, exponent);
-	}
-	
-	private Force wallRepulsionCommand (Scanner line) {
-		int id = line.nextInt();
-		double magnitude = line.nextDouble();
-		double exponent = line.nextDouble();
-		return new WallRepulsion(id, magnitude, exponent);
-	}
 }

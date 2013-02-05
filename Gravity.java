@@ -2,6 +2,7 @@ package simulation;
 
 import java.awt.Dimension;
 import java.util.List;
+import java.util.Scanner;
 
 import util.Vector;
 
@@ -12,6 +13,12 @@ public class Gravity extends Force {
 	public Gravity(double angle, double magnitude)
 	{
 		forceVector = new Vector(angle,magnitude);
+	}
+	
+	public static Gravity generator(Scanner line) {
+		double angle = line.nextDouble();
+		double magnitude = line.nextDouble();
+		return new Gravity(angle, magnitude);		
 	}
 	
 	@Override

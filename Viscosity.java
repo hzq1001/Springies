@@ -2,6 +2,7 @@ package simulation;
 
 import java.awt.Dimension;
 import java.util.List;
+import java.util.Scanner;
 
 import util.Vector;
 
@@ -14,6 +15,11 @@ public class Viscosity extends Force {
 		this.scale = scale;
 	}
 	
+	public static Viscosity generator(Scanner line)
+	{
+		double scale = line.nextDouble();
+		return new Viscosity(scale);
+	}
 	@Override
 	public void apply(List<Mass> masses, Dimension bounds) {
 		
