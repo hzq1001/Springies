@@ -2,11 +2,7 @@ package simulation;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
-
-import view.Canvas;
 
 
 /**
@@ -27,6 +23,8 @@ public class Factory {
 	private static final String VISCOSITY_KEYWORD = "viscosity";
 	private static final String CENTERMASS_KEYWORD = "centermass";
 	private static final String WALLREPULSION_KEYWORD = "wall";
+	
+	
 	
 	//factory is a singleton
 	public static Factory getInstance()
@@ -87,18 +85,19 @@ public class Factory {
 				if (line.hasNext()) {
 					String type = line.next();
 					if (GRAVITY_KEYWORD.equals(type)) {
-						model.add(Gravity.generator(line));
+						model.add(GRAVITY_KEYWORD, Gravity.generator(line));
 					}
 					else if (VISCOSITY_KEYWORD.equals(type)) {
-						model.add(Viscosity.generator(line));
+						model.add(VISCOSITY_KEYWORD, Viscosity.generator(line));
 					}
 					
 					else if (CENTERMASS_KEYWORD.equals(type)) {
-						model.add(CenterOfMass.generator(line));
+						model.add(CENTERMASS_KEYWORD, CenterOfMass.generator(line));
 					}
 					
 					else if (WALLREPULSION_KEYWORD.equals(type)) {
-						model.add(WallRepulsion.generator(line));
+						WallRepulsion w = WallRepulsion.generator(line);
+						model.add(WALLREPULSION_KEYWORD + Integer.toString(w.getId()), w);
 					}
 				}
 			}

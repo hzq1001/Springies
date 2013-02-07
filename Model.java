@@ -21,18 +21,18 @@ public class Model {
     // simulation state
     private List<Mass> myMasses;
     private List<Spring> mySprings;
-    private List<Force> myForces;
  	private Map<Integer, Mass> myMassesMap;
-
-    /**
+ 	private Map<String, Force> myForceMap;
+ 	
+ 	/**
      * Create a game of the given size with the given display for its shapes.
      */
     public Model (Canvas canvas) {
         myView = canvas;
         myMasses = new ArrayList<Mass>();
         mySprings = new ArrayList<Spring>();
-        myForces = new ArrayList<Force>();
         setMyMassesMap(new HashMap<Integer, Mass>());
+        setMyForceMap(new HashMap<String, Force>());
     }
 
     /**
@@ -58,7 +58,7 @@ public class Model {
     	
     	Dimension bounds = myView.getSize();
     	
-    	for (Force f : myForces) {
+    	for (Force f : myForceMap.values()) {
     		f.apply(myMasses, bounds);
     	}
     	
@@ -87,8 +87,14 @@ public class Model {
     /**
      * Add given force to this simulation.
      */
-    public void add (Force force) {
-        myForces.add(force);
+    public void add (String name, Force force) {
+        myForceMap.put(name, force);
+    }
+    
+    public void clear() {
+    	myMasses.clear();
+    	mySprings.clear();
+    	myMassesMap.clear();
     }
 
 	public Map<Integer, Mass> getMyMassesMap() {
@@ -97,6 +103,13 @@ public class Model {
 
 	public void setMyMassesMap(Map<Integer, Mass> myMassesMap) {
 		this.myMassesMap = myMassesMap;
+	}
+
+	public void setMyForceMap(Map<String, Force> myForceMap) {
+		this.myForceMap = myForceMap;
+	}
+	public Map<String, Force> getMyForceMap() {
+		return myForceMap;
 	}
 
 	
