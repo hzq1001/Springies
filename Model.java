@@ -47,10 +47,14 @@ public class Model {
         }
     }
 
+    
     /**
      * Update simulation for this moment, given the time since the last moment.
      */
     public void update (double elapsedTime) {
+    	
+    	//handles user input logic
+    	UserInput.getInstance(myView, this).update(elapsedTime);
     	
     	Dimension bounds = myView.getSize();
     	

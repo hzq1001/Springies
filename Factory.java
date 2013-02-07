@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+import view.Canvas;
+
 
 /**
  * XXX
@@ -13,6 +15,8 @@ import java.util.Scanner;
  * @author Robert C. Duvall
  */
 public class Factory {
+	
+	private static Factory instance;
 	// data file keywords
 	private static final String MASS_KEYWORD = "mass";
 	private static final String SPRING_KEYWORD = "spring";
@@ -24,18 +28,31 @@ public class Factory {
 	private static final String CENTERMASS_KEYWORD = "centermass";
 	private static final String WALLREPULSION_KEYWORD = "wall";
 	
+	//factory is a singleton
+	public static Factory getInstance()
+	{
+		if (instance == null)
+		{
+			synchronized(Factory.class)
+			{
+				if (instance == null)
+					instance = new Factory();
+			}            
+		}
 
+		return instance;
+	}
 
-	public void loadModel (Model model, File dataFile) {
+/*	public void loadModel (Model model, File dataFile) {
 		loadObjects(model, dataFile);
 	}
 
 	public void loadModel(Model model, File dataFile, File envFile) {
 		loadObjects(model, dataFile);
 		loadEnvironment(model, envFile);
-	}
+	}*/
 
-	public void loadObjects(Model model, File dataFile) {
+	public void loadAssembly(Model model, File dataFile) {
 		try {
 			Scanner input = new Scanner(dataFile);
 			while (input.hasNext()) {
@@ -61,7 +78,7 @@ public class Factory {
 		}
 	}
 
-	private void loadEnvironment(Model model, File envFile) {
+	public void loadEnvironment(Model model, File envFile) {
 		try {
 			//optional second file
 			Scanner input = new Scanner(envFile);
