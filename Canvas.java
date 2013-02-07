@@ -2,7 +2,6 @@ package view;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FileDialog;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -120,13 +119,15 @@ public class Canvas extends JComponent {
         // create a timer to animate the canvas
         myTimer = new Timer(DEFAULT_DELAY, 
             new ActionListener() {
-                public void actionPerformed (ActionEvent e) {
+                @Override
+				public void actionPerformed (ActionEvent e) {
                     step();
                 }
             });
         // start animation
         mySimulation = new Model(this);
-        loadModel();
+        loadAssembly();
+        loadEnvironment();
         myTimer.start();
     }
 
@@ -162,7 +163,7 @@ public class Canvas extends JComponent {
             @Override
             public void keyReleased (KeyEvent e) {
                 myLastKeyPressed = NO_KEY_PRESSED;
-                myKeys.remove((Integer)e.getKeyCode());
+                myKeys.remove(e.getKeyCode());
             }
         });
         myLastMousePosition = NO_MOUSE_PRESSED;
@@ -185,18 +186,16 @@ public class Canvas extends JComponent {
         });
     }
 
-    // load model from file chosen by user
-    private void loadModel () {
-        Factory factory = new Factory();
-        
-        //load the two files
+    public void loadAssembly () {
         File dataFile = loadFile("Choose data file");
-        File envFile = loadFile("Choose environment file");
+        if(dataFile != null)
+        	Factory.getInstance().loadAssembly(mySimulation, dataFile);
         
-        if(envFile == null)
-        	factory.loadModel(mySimulation, dataFile);
-        else
-        	factory.loadModel(mySimulation, dataFile, envFile);
+    }
+    public void loadEnvironment() {
+    	File envFile = loadFile("Choose environment file");
+    	if(envFile != null)
+    		Factory.getInstance().loadEnvironment(mySimulation, envFile);
     }
     
     private File loadFile(String title) {
