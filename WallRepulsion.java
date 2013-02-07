@@ -65,4 +65,10 @@ public class WallRepulsion extends Force {
 
 	}
 
+	public int getId() {
+		return id;
+	}
+	
+	
+
 }
