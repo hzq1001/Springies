@@ -1,5 +1,6 @@
 package simulation;
 
+import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.util.Map;
 
@@ -29,6 +30,9 @@ public class UserInput {
 	private static final Force DEFAULT_WALLREPULSION_RIGHT = new WallRepulsion(1, 500, 1.0);
 	private static final Force DEFAULT_WALLREPULSION_DOWN = new WallRepulsion(1, 500, 1.0);
 	private static final Force DEFAULT_WALLREPULSION_LEFT = new WallRepulsion(1, 500, 1.0);
+	
+	//Default wall size change value
+	private static final int DEFAULT_CHANGE_VALUE = 10;
 	
 	private UserInput (Canvas view, Model model) {
 		myView = view;
@@ -63,7 +67,6 @@ public class UserInput {
 	
 	private void handleKeys() {
 		int key = myView.getLastKeyPressed();
-		System.out.println(key);
 		
 		if(key == KeyEvent.VK_N) {
 			myView.loadAssembly();
@@ -100,6 +103,28 @@ public class UserInput {
 		else if(key == KeyEvent.VK_4) {
 			toggleForce("wall4", myWallRepulsionLeft);
 		}
+		
+		else if(key == KeyEvent.VK_UP) {
+			increaseWallArea(DEFAULT_CHANGE_VALUE);
+		}
+		
+		else if(key == KeyEvent.VK_DOWN) {
+			decreaseWallArea(DEFAULT_CHANGE_VALUE);
+		}
+	}
+
+	private void increaseWallArea(int pixel) {
+		Dimension wall = myModel.getMyWallArea();
+		int newHight = (int)wall.getHeight() + pixel;
+		int newWidth = (int)wall.getWidth() + pixel;
+		Dimension newWall = new Dimension(newWidth,newHight);
+		myModel.setMyWallArea(newWall);
+		myView.resetLastKeyPressed();
+	}
+
+	private void decreaseWallArea(int pixel) {
+		increaseWallArea(-pixel);
+		
 	}
 
 	private void toggleForce(String name, Force f) {

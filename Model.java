@@ -23,6 +23,7 @@ public class Model {
     private List<Spring> mySprings;
  	private Map<Integer, Mass> myMassesMap;
  	private Map<String, Force> myForceMap;
+ 	private Dimension myWallArea;
  	
  	/**
      * Create a game of the given size with the given display for its shapes.
@@ -33,6 +34,7 @@ public class Model {
         mySprings = new ArrayList<Spring>();
         setMyMassesMap(new HashMap<Integer, Mass>());
         setMyForceMap(new HashMap<String, Force>());
+        myWallArea = myView.getSize();
     }
 
     /**
@@ -56,17 +58,17 @@ public class Model {
     	//handles user input logic
     	UserInput.getInstance(myView, this).update(elapsedTime);
     	
-    	Dimension bounds = myView.getSize();
+    	//Dimension bounds = myView.getSize();
     	
     	for (Force f : myForceMap.values()) {
-    		f.apply(myMasses, bounds);
+    		f.apply(myMasses, myWallArea);
     	}
     	
         for (Spring s : mySprings) {
-            s.update(elapsedTime, bounds);
+            s.update(elapsedTime, myWallArea);
         }
         for (Mass m : myMasses) {
-            m.update(elapsedTime, bounds);
+            m.update(elapsedTime, myWallArea);
         }
     }
 
@@ -111,6 +113,16 @@ public class Model {
 	public Map<String, Force> getMyForceMap() {
 		return myForceMap;
 	}
+
+	public Dimension getMyWallArea() {
+		return myWallArea;
+	}
+
+	public void setMyWallArea(Dimension myWallArea) {
+		this.myWallArea = myWallArea;
+	}
+	
+	
 
 	
 }
