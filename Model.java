@@ -2,11 +2,13 @@ package simulation;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.geom.Point2D;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 
+import util.Location;
 import view.Canvas;
 
 
@@ -32,8 +34,8 @@ public class Model {
         myView = canvas;
         myMasses = new ArrayList<Mass>();
         mySprings = new ArrayList<Spring>();
-        setMyMassesMap(new HashMap<Integer, Mass>());
-        setMyForceMap(new HashMap<String, Force>());
+        setMassesMap(new HashMap<Integer, Mass>());
+        setForceMap(new HashMap<String, Force>());
         myWallArea = myView.getSize();
     }
 
@@ -120,27 +122,65 @@ public class Model {
     	myMassesMap.clear();
     }
 
-	public Map<Integer, Mass> getMyMassesMap() {
+	public Map<Integer, Mass> getMassesMap() {
 		return myMassesMap;
 	}
 
-	public void setMyMassesMap(Map<Integer, Mass> myMassesMap) {
+	public List<Mass> getMasses() {
+		return myMasses;
+	}
+
+	public void setMasses(List<Mass> myMasses) {
+		this.myMasses = myMasses;
+	}
+
+	public void setMassesMap(Map<Integer, Mass> myMassesMap) {
 		this.myMassesMap = myMassesMap;
 	}
 
-	public void setMyForceMap(Map<String, Force> myForceMap) {
+	public void setForceMap(Map<String, Force> myForceMap) {
 		this.myForceMap = myForceMap;
 	}
-	public Map<String, Force> getMyForceMap() {
+	public Map<String, Force> getForceMap() {
 		return myForceMap;
 	}
 
-	public Dimension getMyWallArea() {
+	public Dimension getWallArea() {
 		return myWallArea;
 	}
 
-	public void setMyWallArea(Dimension myWallArea) {
+	public void setWallArea(Dimension myWallArea) {
 		this.myWallArea = myWallArea;
+	}
+
+	
+	/**
+	 * Returns the mass nearest to a given location
+	 */
+	public Mass getNearestMass(double x, double y) {
+		Mass nearestMass = null;
+		double shortestDistance = myView.getWidth() + myView.getHeight(); //will always be larger than any other distance
+		double distance;
+		for (Mass mass : myMasses) {
+			if (nearestMass == null)
+				nearestMass = mass;
+			
+			distance = distance(x,y, mass.getX(), mass.getY());
+			if (distance < shortestDistance) {
+				shortestDistance = distance;
+				nearestMass = mass;
+			}
+		}
+		return nearestMass;
+	}
+	
+	/**
+	 *  Helper function that measures the distance between two points
+	 *  TODO: replace this with a default method from somewhere.
+	 */
+	private double distance(double x1, double y1, double x2, double y2) {
+		//pythagorean theorem
+		return Math.pow(Math.pow(x1-x2, 2)+Math.pow(y1-y2, 2), 0.5);
 	}
 	
 	/**
