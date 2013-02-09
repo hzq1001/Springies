@@ -56,6 +56,7 @@ public class Canvas extends JComponent {
     // input state
     private int myLastKeyPressed;
     private Point myLastMousePosition;
+    private boolean myMousePressed;
     private Set<Integer> myKeys;
 
 
@@ -98,9 +99,12 @@ public class Canvas extends JComponent {
         return myLastKeyPressed;
     }
     
-    public void resetLastKeyPressed () {
-    	myLastKeyPressed = NO_KEY_PRESSED;
-    }
+    /**
+     * Resets the last key pressed to -1.
+     */
+    public void resetLastKeyPressed() {
+		myLastKeyPressed = NO_KEY_PRESSED;
+	}
 
     /**
      * Returns all keys currently pressed by the user.
@@ -115,6 +119,14 @@ public class Canvas extends JComponent {
     public Point getLastMousePosition () {
         return myLastMousePosition;
     }
+    
+    /**
+     * Returns whether the mouse is pressed.
+     */
+    public boolean getMousePressed () {
+        return myMousePressed;
+    }
+    
 
     /**
      * Start the animation.
@@ -171,21 +183,25 @@ public class Canvas extends JComponent {
             }
         });
         myLastMousePosition = NO_MOUSE_PRESSED;
+        myMousePressed = false;
         addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseDragged (MouseEvent e) {
                 myLastMousePosition = e.getPoint();
+                //myMousePressed = true;
             }
         });
         addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed (MouseEvent e) {
                 myLastMousePosition = e.getPoint();
+                myMousePressed = true;
             }
 
             @Override
             public void mouseReleased (MouseEvent e) {
                 myLastMousePosition = NO_MOUSE_PRESSED;
+                myMousePressed = false;
             }
         });
     }
@@ -205,6 +221,7 @@ public class Canvas extends JComponent {
     private File loadFile(String title) {
     	INPUT_CHOOSER.setDialogTitle(title);
     	int response = INPUT_CHOOSER.showOpenDialog(null);
+    	INPUT_CHOOSER.setDialogTitle("Open");
     	
         if (response == JFileChooser.APPROVE_OPTION) {
             return INPUT_CHOOSER.getSelectedFile();
@@ -214,4 +231,12 @@ public class Canvas extends JComponent {
         return null;
     }
     
+    /**
+	 * Returns whether a point is within the bounds of the canvas
+	 */
+	public boolean withinCanvas(Point point) {
+		if (point == null)
+			return false;
+		return point.getX()>0 && point.getX() < getWidth() && point.getY() > 0 && point.getY() < getHeight();
+	}
 }
