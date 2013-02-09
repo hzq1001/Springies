@@ -99,12 +99,9 @@ public class Canvas extends JComponent {
         return myLastKeyPressed;
     }
     
-    /**
-     * Resets the last key pressed to -1.
-     */
-    public void resetLastKeyPressed() {
-		myLastKeyPressed = NO_KEY_PRESSED;
-	}
+    public void resetLastKeyPressed () {
+    	myLastKeyPressed = NO_KEY_PRESSED;
+    }
 
     /**
      * Returns all keys currently pressed by the user.
@@ -126,10 +123,6 @@ public class Canvas extends JComponent {
     public boolean getMousePressed () {
         return myMousePressed;
     }
-<<<<<<< HEAD
-=======
-    
->>>>>>> 70c81ad3265ff7aac7c0a7ca7e3c609e9ddc8133
 
     /**
      * Start the animation.
@@ -191,7 +184,6 @@ public class Canvas extends JComponent {
             @Override
             public void mouseDragged (MouseEvent e) {
                 myLastMousePosition = e.getPoint();
-                //myMousePressed = true;
             }
         });
         addMouseListener(new MouseAdapter() {
@@ -224,7 +216,6 @@ public class Canvas extends JComponent {
     private File loadFile(String title) {
     	INPUT_CHOOSER.setDialogTitle(title);
     	int response = INPUT_CHOOSER.showOpenDialog(null);
-    	INPUT_CHOOSER.setDialogTitle("Open");
     	
         if (response == JFileChooser.APPROVE_OPTION) {
             return INPUT_CHOOSER.getSelectedFile();
@@ -242,8 +233,5 @@ public class Canvas extends JComponent {
 			return false;
 		return point.getX()>0 && point.getX() < getWidth() && point.getY() > 0 && point.getY() < getHeight();
 	}
-<<<<<<< HEAD
     
-=======
->>>>>>> 70c81ad3265ff7aac7c0a7ca7e3c609e9ddc8133
 }
