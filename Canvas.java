@@ -56,6 +56,7 @@ public class Canvas extends JComponent {
     // input state
     private int myLastKeyPressed;
     private Point myLastMousePosition;
+    private boolean myMousePressed;
     private Set<Integer> myKeys;
 
 
@@ -115,6 +116,13 @@ public class Canvas extends JComponent {
     public Point getLastMousePosition () {
         return myLastMousePosition;
     }
+    
+    /**
+     * Returns whether the mouse is pressed.
+     */
+    public boolean getMousePressed () {
+        return myMousePressed;
+    }
 
     /**
      * Start the animation.
@@ -171,6 +179,7 @@ public class Canvas extends JComponent {
             }
         });
         myLastMousePosition = NO_MOUSE_PRESSED;
+        myMousePressed = false;
         addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseDragged (MouseEvent e) {
@@ -181,11 +190,13 @@ public class Canvas extends JComponent {
             @Override
             public void mousePressed (MouseEvent e) {
                 myLastMousePosition = e.getPoint();
+                myMousePressed = true;
             }
 
             @Override
             public void mouseReleased (MouseEvent e) {
                 myLastMousePosition = NO_MOUSE_PRESSED;
+                myMousePressed = false;
             }
         });
     }
@@ -213,5 +224,14 @@ public class Canvas extends JComponent {
         //TODO: throw an error here
         return null;
     }
+    
+    /**
+	 * Returns whether a point is within the bounds of the canvas
+	 */
+	public boolean withinCanvas(Point point) {
+		if (point == null)
+			return false;
+		return point.getX()>0 && point.getX() < getWidth() && point.getY() > 0 && point.getY() < getHeight();
+	}
     
 }

@@ -78,6 +78,13 @@ public class Model {
     public void add (Mass mass) {
         myMasses.add(mass);
     }
+    
+    /**
+     * Remove given mass from this simulation.
+     */
+    public void remove (Mass mass) {
+        myMasses.remove(mass);
+    }
 
     /**
      * Add given spring to this simulation.
@@ -87,10 +94,24 @@ public class Model {
     }
     
     /**
+     * Remove given spring from this simulation.
+     */
+    public void remove (Spring spring) {
+        mySprings.remove(spring);
+    }
+    
+    /**
      * Add given force to this simulation.
      */
     public void add (String name, Force force) {
         myForceMap.put(name, force);
+    }
+    
+    /**
+     * Remove given force from this simulation.
+     */
+    public void remove (String name) {
+        myForceMap.remove(name);
     }
     
     public void clear() {
@@ -120,6 +141,35 @@ public class Model {
 
 	public void setMyWallArea(Dimension myWallArea) {
 		this.myWallArea = myWallArea;
+	}
+	
+	/**
+	 * Returns the mass nearest to a given location
+	 */
+	public Mass getNearestMass(double x, double y) {
+		Mass nearestMass = null;
+		double shortestDistance = myView.getWidth() + myView.getHeight(); //will always be larger than any other distance
+		double distance;
+		for (Mass mass : myMasses) {
+			if (nearestMass == null)
+				nearestMass = mass;
+			
+			distance = distance(x,y, mass.getX(), mass.getY());
+			if (distance < shortestDistance) {
+				shortestDistance = distance;
+				nearestMass = mass;
+			}
+		}
+		return nearestMass;
+	}
+	
+	/**
+	 *  Helper function that measures the distance between two points
+	 *  TODO: replace this with a default method from somewhere.
+	 */
+	private double distance(double x1, double y1, double x2, double y2) {
+		//pythagorean theorem
+		return Math.pow(Math.pow(x1-x2, 2)+Math.pow(y1-y2, 2), 0.5);
 	}
 	
 	

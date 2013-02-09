@@ -19,6 +19,14 @@ public class UserInput {
 	private Force myWallRepulsionDown;
 	private Force myWallRepulsionLeft;
 	
+	// defaults for mouse functionality
+	private static final double DEFAULT_MOUSE_SPRING_LENGTH = 25;
+	private static final double DEFAULT_MOUSE_SPRING_CONSTANT = 0.2;
+
+	// dummy mass and spring for the mouse functionality
+	private static Mass mouseMass = new Mass(0, 0, -1);
+	private static Spring mouseSpring = null;
+	
 	//UserInput is a Singleton
 	private static UserInput instance;
 	
@@ -27,9 +35,9 @@ public class UserInput {
 	private static final Force DEFAULT_VISCOSITY = new Viscosity(0.1);
 	private static final Force DEFAULT_CENTEROFMASS = new CenterOfMass(100,2);
 	private static final Force DEFAULT_WALLREPULSION_TOP = new WallRepulsion(1, 500, 1.0);
-	private static final Force DEFAULT_WALLREPULSION_RIGHT = new WallRepulsion(1, 500, 1.0);
-	private static final Force DEFAULT_WALLREPULSION_DOWN = new WallRepulsion(1, 500, 1.0);
-	private static final Force DEFAULT_WALLREPULSION_LEFT = new WallRepulsion(1, 500, 1.0);
+	private static final Force DEFAULT_WALLREPULSION_RIGHT = new WallRepulsion(2, 500, 1.0);
+	private static final Force DEFAULT_WALLREPULSION_DOWN = new WallRepulsion(3, 500, 1.0);
+	private static final Force DEFAULT_WALLREPULSION_LEFT = new WallRepulsion(4, 500, 1.0);
 	
 	//Default wall size change value
 	private static final int DEFAULT_CHANGE_VALUE = 10;
@@ -137,8 +145,35 @@ public class UserInput {
 		} 
 		myView.resetLastKeyPressed();
 	}
-	private void handleMouse() {
+
+private void handleMouse() {
 		
+		// mouse not pressed
+		if (!myView.getMousePressed()) {
+			myModel.remove(mouseMass);
+			myModel.remove(mouseSpring);
+			mouseSpring = null;
+		} 
+		else {// mouse pressed or dragged
+			
+			// set mouse spring and mass position
+			if(myView.withinCanvas(myView.getMousePosition()))
+				mouseMass.setCenter(myView.getMousePosition().getX(), myView.getMousePosition().getY());
+
+			// mouse pressed for first time
+			if (mouseSpring == null) {
+				mouseSpring = new Spring(mouseMass, 
+										myModel.getNearestMass(
+												myView.getMousePosition().getX(), 
+												myView.getMousePosition().getY()),
+										DEFAULT_MOUSE_SPRING_LENGTH,
+										DEFAULT_MOUSE_SPRING_CONSTANT);
+
+				// add the dummy mass and spring to the simulation
+				myModel.add(mouseMass);
+				myModel.add(mouseSpring);
+			}
+		}
 	}
 	
 	
