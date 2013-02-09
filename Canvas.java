@@ -97,6 +97,10 @@ public class Canvas extends JComponent {
     public int getLastKeyPressed () {
         return myLastKeyPressed;
     }
+    
+    public void resetLastKeyPressed () {
+    	myLastKeyPressed = NO_KEY_PRESSED;
+    }
 
     /**
      * Returns all keys currently pressed by the user.
@@ -201,7 +205,6 @@ public class Canvas extends JComponent {
     private File loadFile(String title) {
     	INPUT_CHOOSER.setDialogTitle(title);
     	int response = INPUT_CHOOSER.showOpenDialog(null);
-    	INPUT_CHOOSER.setDialogTitle("Open");
     	
         if (response == JFileChooser.APPROVE_OPTION) {
             return INPUT_CHOOSER.getSelectedFile();
