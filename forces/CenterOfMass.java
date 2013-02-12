@@ -1,32 +1,28 @@
-package simulation;
+package simulation.forces;
 
 import java.awt.Dimension;
 import java.util.List;
 import java.util.Scanner;
+
+import simulation.assembly.Mass;
 import util.Location;
 import util.Vector;
 
 
 public class CenterOfMass extends Force {
 
-<<<<<<< HEAD
-=======
 	private static final double DEFAULT_MAGNITUDE = 100;
 	private static final double DEFAULT_EXPONENT = 2;
 	
->>>>>>> Broke factory into heirarchy
     private Location com;
     private double magnitude;
     private double exponent;
 
-<<<<<<< HEAD
-=======
     public CenterOfMass () {
         this.magnitude = DEFAULT_MAGNITUDE;
         this.exponent = DEFAULT_EXPONENT;
     }
     
->>>>>>> Broke factory into heirarchy
     public CenterOfMass (double magnitude, double exponent) {
         this.magnitude = magnitude;
         this.exponent = exponent;

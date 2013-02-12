@@ -1,8 +1,10 @@
-package simulation;
+package simulation.forces;
 
 import java.awt.Dimension;
 import java.util.List;
 import java.util.Scanner;
+
+import simulation.assembly.Mass;
 import util.Sprite;
 import util.Vector;
 
@@ -14,13 +16,6 @@ public class WallRepulsion extends Force {
     private double exponent;
     private Vector force;
 
-<<<<<<< HEAD
-    private static final int TOP = 1;
-    private static final int RIGHT = 2;
-    private static final int DOWN = 3;
-    private static final int LEFT = 4;
-
-=======
     public static final int TOP = 1;
     public static final int RIGHT = 2;
     public static final int DOWN = 3;
@@ -35,7 +30,6 @@ public class WallRepulsion extends Force {
         this.exponent = DEFAULT_EXPONENT;
     }
     
->>>>>>> Broke factory into heirarchy
     public WallRepulsion (int id, double magnitude, double exponent) {
         this.id = id;
         this.magnitude = magnitude;

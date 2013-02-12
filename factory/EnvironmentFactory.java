@@ -1,6 +1,12 @@
-package simulation;
+package simulation.factory;
 
 import java.util.Scanner;
+
+import simulation.Model;
+import simulation.forces.CenterOfMass;
+import simulation.forces.Gravity;
+import simulation.forces.Viscosity;
+import simulation.forces.WallRepulsion;
 
 public class EnvironmentFactory extends Factory {
 

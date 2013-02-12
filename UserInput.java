@@ -3,6 +3,14 @@ package simulation;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.util.Map;
+
+import simulation.assembly.Mass;
+import simulation.assembly.Spring;
+import simulation.forces.CenterOfMass;
+import simulation.forces.Force;
+import simulation.forces.Gravity;
+import simulation.forces.Viscosity;
+import simulation.forces.WallRepulsion;
 import view.Canvas;
 
 
@@ -30,23 +38,6 @@ public class UserInput {
     private static UserInput instance;
 
     // Default force value
-<<<<<<< HEAD
-    private static final Force DEFAULT_GRAVITY = new Gravity(90, 100);
-    private static final Force DEFAULT_VISCOSITY = new Viscosity(0.1);
-    private static final Force DEFAULT_CENTEROFMASS = new CenterOfMass(100, 2);
-    private static final Force DEFAULT_WALLREPULSION_TOP =
-            new WallRepulsion(1,
-                              500, 1.0);
-    private static final Force DEFAULT_WALLREPULSION_RIGHT =
-            new WallRepulsion(
-                              2, 500, 1.0);
-    private static final Force DEFAULT_WALLREPULSION_DOWN =
-            new WallRepulsion(
-                              3, 500, 1.0);
-    private static final Force DEFAULT_WALLREPULSION_LEFT =
-            new WallRepulsion(
-                              4, 500, 1.0);
-=======
     private static final Force DEFAULT_GRAVITY = new Gravity();
     private static final Force DEFAULT_VISCOSITY = new Viscosity();
     private static final Force DEFAULT_CENTEROFMASS = new CenterOfMass();
@@ -54,7 +45,6 @@ public class UserInput {
     private static final Force DEFAULT_WALLREPULSION_RIGHT =  new WallRepulsion(WallRepulsion.RIGHT);
     private static final Force DEFAULT_WALLREPULSION_DOWN =   new WallRepulsion(WallRepulsion.DOWN);
     private static final Force DEFAULT_WALLREPULSION_LEFT =   new WallRepulsion(WallRepulsion.LEFT);
->>>>>>> Broke factory into heirarchy
 
     // Default wall size change value
     private static final int DEFAULT_CHANGE_VALUE = 10;

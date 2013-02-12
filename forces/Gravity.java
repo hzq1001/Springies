@@ -1,17 +1,15 @@
-package simulation;
+package simulation.forces;
 
 import java.awt.Dimension;
 import java.util.List;
 import java.util.Scanner;
+
+import simulation.assembly.Mass;
 import util.Vector;
 
 
 public class Gravity extends Force {
 
-<<<<<<< HEAD
-    Vector forceVector;
-
-=======
 	private static final double DEFAULT_ANGLE = 90;
 	private static final double DEFAULT_MAGNITUDE = 100;
 	
@@ -22,7 +20,6 @@ public class Gravity extends Force {
         forceVector = new Vector(DEFAULT_ANGLE, DEFAULT_MAGNITUDE);
     }
     
->>>>>>> Broke factory into heirarchy
     public Gravity (double angle, double magnitude)
     {
         forceVector = new Vector(angle, magnitude);

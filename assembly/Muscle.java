@@ -1,8 +1,10 @@
-package simulation;
+package simulation.assembly;
 
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.Scanner;
+
+import simulation.Model;
 import util.Vector;
 
 

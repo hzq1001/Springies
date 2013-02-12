@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import simulation.assembly.Mass;
+import simulation.assembly.Spring;
+import simulation.forces.Force;
 import view.Canvas;
 
 
@@ -36,10 +40,6 @@ public class Model {
         setMyMassesMap(new HashMap<Integer, Mass>());
         setMyForceMap(new HashMap<String, Force>());
         myWallArea = myView.getSize();
-<<<<<<< HEAD
-        setShortestDistance(myView.getWidth() + myView.getHeight());
-=======
->>>>>>> Broke factory into heirarchy
     }
 
     /**
@@ -153,11 +153,7 @@ public class Model {
      */
     public Mass getNearestMass (Mass myMass) {
         Mass nearestMass = null;
-<<<<<<< HEAD
-        // double shortestDistance = myView.getWidth() + myView.getHeight();
-=======
         shortestDistance = myView.getWidth() + myView.getHeight();
->>>>>>> Broke factory into heirarchy
         // //will always be larger than any other distance
         double distance;
         for (Mass mass : myMasses) {

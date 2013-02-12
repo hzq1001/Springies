@@ -1,7 +1,9 @@
-package simulation;
+package simulation.forces;
 
 import java.awt.Dimension;
 import java.util.List;
+
+import simulation.assembly.Mass;
 import util.Vector;
 
 

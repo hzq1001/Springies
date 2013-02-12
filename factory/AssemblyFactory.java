@@ -1,6 +1,11 @@
-package simulation;
+package simulation.factory;
 
 import java.util.Scanner;
+
+import simulation.Model;
+import simulation.assembly.Mass;
+import simulation.assembly.Muscle;
+import simulation.assembly.Spring;
 
 public class AssemblyFactory extends Factory {
 

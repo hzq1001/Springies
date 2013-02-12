@@ -1,9 +1,11 @@
-package simulation;
+package simulation.assembly;
 
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.Scanner;
+
+import simulation.Model;
 import util.Location;
 import util.Pixmap;
 import util.Sprite;

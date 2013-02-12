@@ -1,17 +1,15 @@
-package simulation;
+package simulation.forces;
 
 import java.awt.Dimension;
 import java.util.List;
 import java.util.Scanner;
+
+import simulation.assembly.Mass;
 import util.Vector;
 
 
 public class Viscosity extends Force {
 
-<<<<<<< HEAD
-    double scale;
-
-=======
 	private static final double DEFAULT_SCALE = .01;
 	
     double scale;
@@ -21,7 +19,6 @@ public class Viscosity extends Force {
         this.scale = DEFAULT_SCALE;
     }
     
->>>>>>> Broke factory into heirarchy
     public Viscosity (double scale)
     {
         this.scale = scale;
@@ -38,12 +35,7 @@ public class Viscosity extends Force {
 
         for (Mass m : masses) {
             // apply a force opposite to the velocity of the mass scaled by the viscosity's scale
-<<<<<<< HEAD
-            // value
-            Vector force = m.getVelocity();
-=======
             Vector force = new Vector(m.getVelocity().getDirection(), m.getVelocity().getMagnitude());
->>>>>>> Broke factory into heirarchy
             force.negate();
             force.scale(scale);
             m.applyForce(force);
