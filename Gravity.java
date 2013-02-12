@@ -8,8 +8,21 @@ import util.Vector;
 
 public class Gravity extends Force {
 
+<<<<<<< HEAD
     Vector forceVector;
 
+=======
+	private static final double DEFAULT_ANGLE = 90;
+	private static final double DEFAULT_MAGNITUDE = 100;
+	
+    Vector forceVector;
+
+    public Gravity ()
+    {
+        forceVector = new Vector(DEFAULT_ANGLE, DEFAULT_MAGNITUDE);
+    }
+    
+>>>>>>> Broke factory into heirarchy
     public Gravity (double angle, double magnitude)
     {
         forceVector = new Vector(angle, magnitude);

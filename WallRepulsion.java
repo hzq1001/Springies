@@ -14,11 +14,28 @@ public class WallRepulsion extends Force {
     private double exponent;
     private Vector force;
 
+<<<<<<< HEAD
     private static final int TOP = 1;
     private static final int RIGHT = 2;
     private static final int DOWN = 3;
     private static final int LEFT = 4;
 
+=======
+    public static final int TOP = 1;
+    public static final int RIGHT = 2;
+    public static final int DOWN = 3;
+    public static final int LEFT = 4;
+    
+    public static final double DEFAULT_MAGNITUDE = 500;
+    public static final double DEFAULT_EXPONENT = 1.0;
+
+    public WallRepulsion (int id) {
+        this.id = id;
+        this.magnitude = DEFAULT_MAGNITUDE;
+        this.exponent = DEFAULT_EXPONENT;
+    }
+    
+>>>>>>> Broke factory into heirarchy
     public WallRepulsion (int id, double magnitude, double exponent) {
         this.id = id;
         this.magnitude = magnitude;

@@ -10,6 +10,7 @@ import java.util.Scanner;
  * 
  * @author Robert C. Duvall
  */
+<<<<<<< HEAD
 public class Factory {
 
     private static Factory instance;
@@ -68,6 +69,19 @@ public class Factory {
                         model.add(Muscle.generator(line, model));
                     }
                 }
+=======
+public abstract class Factory {
+
+    public Factory() {
+    	
+    }
+    
+    public void load(Model model, File dataFile) {
+    	try {
+            Scanner input = new Scanner(dataFile);
+            while (input.hasNext()) {
+                evaluateLine(model, new Scanner(input.nextLine()));
+>>>>>>> Broke factory into heirarchy
             }
             input.close();
         }
@@ -76,6 +90,7 @@ public class Factory {
             e.printStackTrace();
         }
     }
+<<<<<<< HEAD
 
     public void loadEnvironment (Model model, File envFile) {
         try {
@@ -111,4 +126,8 @@ public class Factory {
         }
     }
 
+=======
+    
+    public abstract void evaluateLine(Model model, Scanner line);
+>>>>>>> Broke factory into heirarchy
 }

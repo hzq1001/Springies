@@ -20,6 +20,9 @@ import java.util.TreeSet;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.Timer;
+
+import simulation.AssemblyFactory;
+import simulation.EnvironmentFactory;
 import simulation.Factory;
 import simulation.Model;
 
@@ -204,13 +207,21 @@ public class Canvas extends JComponent {
     public void loadAssembly () {
         File dataFile = loadFile("Choose data file");
         if(dataFile != null)
+<<<<<<< HEAD
         	Factory.getInstance().loadAssembly(mySimulation, dataFile);
+=======
+        	new AssemblyFactory().load(mySimulation, dataFile);
+>>>>>>> Broke factory into heirarchy
         
     }
     public void loadEnvironment() {
     	File envFile = loadFile("Choose environment file");
     	if(envFile != null)
+<<<<<<< HEAD
     		Factory.getInstance().loadEnvironment(mySimulation, envFile);
+=======
+    		new EnvironmentFactory().load(mySimulation, envFile);
+>>>>>>> Broke factory into heirarchy
     }
     
     private File loadFile(String title) {
