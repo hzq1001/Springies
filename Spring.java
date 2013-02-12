@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.Scanner;
-
 import util.Location;
 import util.Pixmap;
 import util.Sprite;
@@ -43,7 +42,8 @@ public class Spring extends Sprite {
     @Override
     public void paint (Graphics2D pen) {
         pen.setColor(getColor(myStart.distance(myEnd) - myLength));
-        pen.drawLine((int)myStart.getX(), (int)myStart.getY(), (int)myEnd.getX(), (int)myEnd.getY());
+        pen.drawLine((int) myStart.getX(), (int) myStart.getY(), (int) myEnd.getX(),
+                     (int) myEnd.getY());
     }
 
     /**
@@ -54,7 +54,7 @@ public class Spring extends Sprite {
         double dx = myStart.getX() - myEnd.getX();
         double dy = myStart.getY() - myEnd.getY();
         // apply hooke's law to each attached mass
-        Vector force = new Vector(Vector.angleBetween(dx, dy), 
+        Vector force = new Vector(Vector.angleBetween(dx, dy),
                                   myK * (myLength - Vector.distanceBetween(dx, dy)));
         myStart.applyForce(force);
         force.negate();
@@ -64,21 +64,23 @@ public class Spring extends Sprite {
         setSize(getSize(myStart, myEnd));
         setVelocity(Vector.angleBetween(dx, dy), 0);
     }
-    
+
     public static Spring generator (Scanner line, Model model) {
-    	Mass m1 = model.getMyMassesMap().get(line.nextInt());
-		Mass m2 = model.getMyMassesMap().get(line.nextInt());
-		double restLength = line.nextDouble();
-		double ks = line.nextDouble();
-		return new Spring(m1, m2, restLength, ks);
+        Mass m1 = model.getMyMassesMap().get(line.nextInt());
+        Mass m2 = model.getMyMassesMap().get(line.nextInt());
+        double restLength = line.nextDouble();
+        double ks = line.nextDouble();
+        return new Spring(m1, m2, restLength, ks);
     }
 
     /**
      * Convenience method.
      */
     protected Color getColor (double diff) {
-        if (Vector.fuzzyEquals(diff, 0)) return Color.BLACK;
-        else if (diff < 0.0) return Color.BLUE;
+        if (Vector.fuzzyEquals(diff, 0))
+            return Color.BLACK;
+        else if (diff < 0.0)
+            return Color.BLUE;
         else return Color.RED;
     }
 
@@ -89,15 +91,15 @@ public class Spring extends Sprite {
 
     // compute size of this spring
     private static Dimension getSize (Mass start, Mass end) {
-        return new Dimension((int)start.distance(end), IMAGE_HEIGHT);
+        return new Dimension((int) start.distance(end), IMAGE_HEIGHT);
     }
-    
-    protected double getLength() {
-		return myLength;
-	}
 
-	protected void setLength(double myLength) {
-		this.myLength = myLength;
-	}
-    
+    protected double getLength () {
+        return myLength;
+    }
+
+    protected void setLength (double myLength) {
+        this.myLength = myLength;
+    }
+
 }

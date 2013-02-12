@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.Scanner;
-
 import util.Location;
 import util.Pixmap;
 import util.Sprite;
@@ -16,14 +15,13 @@ import util.Vector;
  * 
  * @author Robert C. Duvall
  */
-public class Mass extends Sprite {    
+public class Mass extends Sprite {
     // reasonable default values
     public static final Dimension DEFAULT_SIZE = new Dimension(16, 16);
     public static final Pixmap DEFUALT_IMAGE = new Pixmap("mass.gif");
 
     private double myMass;
     private Vector myAcceleration;
-
 
     /**
      * XXX.
@@ -33,30 +31,31 @@ public class Mass extends Sprite {
         myMass = mass;
         myAcceleration = new Vector();
     }
-    
+
     public static Mass generator (Scanner line, Model model) {
-    	int id = line.nextInt();
-		double x = line.nextDouble();
-		double y = line.nextDouble();
-		double mass = line.nextDouble();
-		Mass result = new Mass(x, y, mass);
-		model.getMyMassesMap().put(id,  result);
-		return result;
+        int id = line.nextInt();
+        double x = line.nextDouble();
+        double y = line.nextDouble();
+        double mass = line.nextDouble();
+        Mass result = new Mass(x, y, mass);
+        model.getMyMassesMap().put(id, result);
+        return result;
     }
+
     /**
      * XXX.
      */
     @Override
     public void update (double elapsedTime, Dimension bounds) {
-    	//maybe we do not need FixedMass class
-    	if(myMass > 0){
-    		applyForce(getBounce(bounds));
-    		// convert force back into Mover's velocity
-    		getVelocity().sum(myAcceleration);
-    		myAcceleration.reset();
-    		// move mass by velocity
-    		super.update(elapsedTime, bounds);
-    	}
+        // maybe we do not need FixedMass class
+        if (myMass > 0) {
+            applyForce(getBounce(bounds));
+            // convert force back into Mover's velocity
+            getVelocity().sum(myAcceleration);
+            myAcceleration.reset();
+            // move mass by velocity
+            super.update(elapsedTime, bounds);
+        }
     }
 
     /**
@@ -65,7 +64,7 @@ public class Mass extends Sprite {
     @Override
     public void paint (Graphics2D pen) {
         pen.setColor(Color.BLACK);
-        pen.fillOval((int)getLeft(), (int)getTop(), (int)getWidth(), (int)getHeight());
+        pen.fillOval((int) getLeft(), (int) getTop(), (int) getWidth(), (int) getHeight());
     }
 
     /**
@@ -82,7 +81,6 @@ public class Mass extends Sprite {
         // this is a little awkward, so hide it
         return new Location(getX(), getY()).distance(new Location(other.getX(), other.getY()));
     }
-
 
     // check for move out of bounds
     private Vector getBounce (Dimension bounds) {
@@ -104,8 +102,8 @@ public class Mass extends Sprite {
         return impulse;
     }
 
-	public double getMass() {
-		// TODO Auto-generated method stub
-		return myMass;
-	}
+    public double getMass () {
+        // TODO Auto-generated method stub
+        return myMass;
+    }
 }

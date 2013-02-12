@@ -2,11 +2,10 @@ package simulation;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.ArrayList;
 import java.util.Map;
-
 import view.Canvas;
 
 
@@ -21,11 +20,13 @@ public class Model {
     // simulation state
     private List<Mass> myMasses;
     private List<Spring> mySprings;
- 	private Map<Integer, Mass> myMassesMap;
- 	private Map<String, Force> myForceMap;
- 	private Dimension myWallArea;
- 	
- 	/**
+    private Map<Integer, Mass> myMassesMap;
+    private Map<String, Force> myForceMap;
+    private Dimension myWallArea;
+
+    private double shortestDistance;
+
+    /**
      * Create a game of the given size with the given display for its shapes.
      */
     public Model (Canvas canvas) {
@@ -35,6 +36,7 @@ public class Model {
         setMyMassesMap(new HashMap<Integer, Mass>());
         setMyForceMap(new HashMap<String, Force>());
         myWallArea = myView.getSize();
+        setShortestDistance(myView.getWidth() + myView.getHeight());
     }
 
     /**
@@ -49,21 +51,20 @@ public class Model {
         }
     }
 
-    
     /**
      * Update simulation for this moment, given the time since the last moment.
      */
     public void update (double elapsedTime) {
-    	
-    	//handles user input logic
-    	UserInput.getInstance(myView, this).update(elapsedTime);
-    	
-    	//Dimension bounds = myView.getSize();
-    	
-    	for (Force f : myForceMap.values()) {
-    		f.apply(myMasses, myWallArea);
-    	}
-    	
+
+        // handles user input logic
+        UserInput.getInstance(myView, this).update(elapsedTime);
+
+        // Dimension bounds = myView.getSize();
+
+        for (Force f : myForceMap.values()) {
+            f.apply(myMasses, myWallArea);
+        }
+
         for (Spring s : mySprings) {
             s.update(elapsedTime, myWallArea);
         }
@@ -78,7 +79,7 @@ public class Model {
     public void add (Mass mass) {
         myMasses.add(mass);
     }
-    
+
     /**
      * Remove given mass from this simulation.
      */
@@ -92,87 +93,87 @@ public class Model {
     public void add (Spring spring) {
         mySprings.add(spring);
     }
-    
+
     /**
      * Remove given spring from this simulation.
      */
     public void remove (Spring spring) {
         mySprings.remove(spring);
     }
-    
+
     /**
      * Add given force to this simulation.
      */
     public void add (String name, Force force) {
         myForceMap.put(name, force);
     }
-    
+
     /**
      * Remove given force from this simulation.
      */
     public void remove (String name) {
         myForceMap.remove(name);
     }
-    
-    public void clear() {
-    	myMasses.clear();
-    	mySprings.clear();
-    	myMassesMap.clear();
+
+    public void clear () {
+        myMasses.clear();
+        mySprings.clear();
+        myMassesMap.clear();
     }
 
-	public Map<Integer, Mass> getMyMassesMap() {
-		return myMassesMap;
-	}
+    public Map<Integer, Mass> getMyMassesMap () {
+        return myMassesMap;
+    }
 
-	public void setMyMassesMap(Map<Integer, Mass> myMassesMap) {
-		this.myMassesMap = myMassesMap;
-	}
+    public void setMyMassesMap (Map<Integer, Mass> myMassesMap) {
+        this.myMassesMap = myMassesMap;
+    }
 
-	public void setMyForceMap(Map<String, Force> myForceMap) {
-		this.myForceMap = myForceMap;
-	}
-	public Map<String, Force> getMyForceMap() {
-		return myForceMap;
-	}
+    public void setMyForceMap (Map<String, Force> myForceMap) {
+        this.myForceMap = myForceMap;
+    }
 
-	public Dimension getMyWallArea() {
-		return myWallArea;
-	}
+    public Map<String, Force> getMyForceMap () {
+        return myForceMap;
+    }
 
-	public void setMyWallArea(Dimension myWallArea) {
-		this.myWallArea = myWallArea;
-	}
-	
-	/**
-	 * Returns the mass nearest to a given location
-	 */
-	public Mass getNearestMass(double x, double y) {
-		Mass nearestMass = null;
-		double shortestDistance = myView.getWidth() + myView.getHeight(); //will always be larger than any other distance
-		double distance;
-		for (Mass mass : myMasses) {
-			if (nearestMass == null)
-				nearestMass = mass;
-			
-			distance = distance(x,y, mass.getX(), mass.getY());
-			if (distance < shortestDistance) {
-				shortestDistance = distance;
-				nearestMass = mass;
-			}
-		}
-		return nearestMass;
-	}
-	
-	/**
-	 *  Helper function that measures the distance between two points
-	 *  TODO: replace this with a default method from somewhere.
-	 */
-	private double distance(double x1, double y1, double x2, double y2) {
-		//pythagorean theorem
-		return Math.pow(Math.pow(x1-x2, 2)+Math.pow(y1-y2, 2), 0.5);
-	}
-	
-	
+    public Dimension getMyWallArea () {
+        return myWallArea;
+    }
 
-	
+    public void setMyWallArea (Dimension myWallArea) {
+        this.myWallArea = myWallArea;
+    }
+
+    /**
+     * Returns the mass nearest to a given location
+     */
+    public Mass getNearestMass (Mass myMass) {
+        Mass nearestMass = null;
+        // double shortestDistance = myView.getWidth() + myView.getHeight();
+        // //will always be larger than any other distance
+        double distance;
+        for (Mass mass : myMasses) {
+            if (nearestMass == null) {
+                nearestMass = mass;
+            }
+
+            distance = myMass.distance(mass);
+            if (distance < shortestDistance) {
+                shortestDistance = distance;
+                nearestMass = mass;
+            }
+        }
+        return nearestMass;
+    }
+
+    public double getShortestDistance () {
+        return shortestDistance;
+    }
+
+    public void setShortestDistance (double shortestDistance) {
+        this.shortestDistance = shortestDistance;
+    }
+
+
 }
