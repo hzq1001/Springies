@@ -96,12 +96,46 @@ public class Spring extends Sprite {
         return new Dimension((int) start.distance(end), IMAGE_HEIGHT);
     }
 
-    protected double getLength () {
+//    protected double getLength () {
+//        return myLength;
+//    }
+//
+//    protected void setLength (double myLength) {
+//        this.myLength = myLength;
+//    }
+
+    public Mass getMyStart() {
+        return myStart;
+    }
+
+    public void setMyStart(Mass myStart) {
+        this.myStart = myStart;
+    }
+
+    public Mass getMyEnd() {
+        return myEnd;
+    }
+
+    public void setMyEnd(Mass myEnd) {
+        this.myEnd = myEnd;
+    }
+
+    public double getMyLength() {
         return myLength;
     }
 
-    protected void setLength (double myLength) {
+    public void setMyLength(double myLength) {
         this.myLength = myLength;
     }
+
+    public double getMyK() {
+        return myK;
+    }
+
+    public void setMyK(double myK) {
+        this.myK = myK;
+    }
+    
+    
 
 }
