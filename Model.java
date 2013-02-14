@@ -21,6 +21,7 @@ import view.Canvas;
 public class Model {
     // bounds and input for game
     private Canvas myView;
+    private UserInput myUserInput;
     // simulation state
     private List<Mass> myMasses;
     private List<Spring> mySprings;
@@ -40,6 +41,7 @@ public class Model {
         setMyMassesMap(new HashMap<Integer, Mass>());
         setMyForceMap(new HashMap<String, Force>());
         myWallArea = myView.getSize();
+        myUserInput = new UserInput(canvas, this);
     }
 
     /**
@@ -60,7 +62,7 @@ public class Model {
     public void update (double elapsedTime) {
 
         // handles user input logic
-        UserInput.getInstance(myView, this).update(elapsedTime);
+        myUserInput.update(elapsedTime);
 
         // Dimension bounds = myView.getSize();
 

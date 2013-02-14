@@ -3,6 +3,7 @@ package simulation.assembly;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import simulation.Model;
@@ -21,6 +22,10 @@ public class Mass extends Sprite {
     // reasonable default values
     public static final Dimension DEFAULT_SIZE = new Dimension(16, 16);
     public static final Pixmap DEFUALT_IMAGE = new Pixmap("mass.gif");
+    
+	private static final double DEFAULT_MASS = 5;
+	private static final double DEFAULT_Y_POSITION = 0;
+	private static final double DEFAULT_X_POSITION = 0;
 
     private double myMass;
     private Vector myAcceleration;
@@ -35,13 +40,21 @@ public class Mass extends Sprite {
     }
 
     public static Mass generator (Scanner line, Model model) {
-        int id = line.nextInt();
-        double x = line.nextDouble();
-        double y = line.nextDouble();
-        double mass = line.nextDouble();
-        Mass result = new Mass(x, y, mass);
-        model.getMyMassesMap().put(id, result);
-        return result;
+    	
+    	try {
+    		int id = line.nextInt();
+    		double x = line.hasNextDouble() ? line.nextDouble() : DEFAULT_X_POSITION;
+    		double y = line.hasNextDouble() ? line.nextDouble() : DEFAULT_Y_POSITION;
+    		double mass = line.hasNextDouble() ? line.nextDouble() : DEFAULT_MASS;
+    		Mass result = new Mass(x, y, mass);
+    		model.getMyMassesMap().put(id, result);
+    		return result;
+    		}
+    	catch (NoSuchElementException e) {
+    		System.out.println("File read error. Mass must specify id: " + e.getMessage());
+    		System.exit(0);
+    	}
+    	return null;
     }
 
     /**

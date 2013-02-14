@@ -20,6 +20,9 @@ public class Muscle extends Spring {
                                                                        // blue
     private static Color TENSIONED_COLOR = new Color(178, 34, 34, 255);  // dark
                                                                         // red
+    
+    private static final double DEFAULT_AMPLITUDE = 100;
+    private static final double DEFAULT_PERIOD = 2;
 
     public Muscle(final Mass start, final Mass end, final double length, final double kVal, final double amplitude, final double period) {
         super(start, end, length, kVal);
@@ -31,12 +34,10 @@ public class Muscle extends Spring {
 
     public static Muscle generator(final Scanner line, final Model model) {
         Spring s = Spring.generator(line, model);
-//        final Mass m1 = model.getMyMassesMap().get(line.nextInt());
-//        final Mass m2 = model.getMyMassesMap().get(line.nextInt());
-//        final double restLength = line.nextDouble();
-//        final double ks = line.nextDouble();
-        final double amplitude = line.nextDouble();
-        final double period = line.nextDouble();
+        
+        final double amplitude = line.hasNextDouble() ? line.nextDouble() : DEFAULT_AMPLITUDE;
+        final double period    = line.hasNextDouble() ? line.nextDouble() : DEFAULT_PERIOD;
+        
         return new Muscle(s.getMyStart(), s.getMyEnd(), s.getMyLength(), s.getMyK(), amplitude, period);
     }
 

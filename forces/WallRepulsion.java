@@ -37,9 +37,9 @@ public class WallRepulsion extends Force {
     }
 
     public static WallRepulsion generator (Scanner line) {
-        int id = line.nextInt();
-        double magnitude = line.nextDouble();
-        double exponent = line.nextDouble();
+        int id = line.hasNextInt() ? line.nextInt() : DOWN;
+        double magnitude = line.hasNextDouble() ? line.nextDouble() : DEFAULT_MAGNITUDE;
+        double exponent = line.hasNextDouble() ? line.nextDouble() : DEFAULT_EXPONENT;
         return new WallRepulsion(id, magnitude, exponent);
     }
 

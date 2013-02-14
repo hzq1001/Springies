@@ -49,7 +49,7 @@ public class UserInput {
     // Default wall size change value
     private static final int DEFAULT_CHANGE_VALUE = 10;
 
-    private UserInput(final Canvas view, final Model model) {
+    public UserInput(final Canvas view, final Model model) {
         myView = view;
         myModel = model;
         myGravity = DEFAULT_GRAVITY;
@@ -59,18 +59,6 @@ public class UserInput {
         myWallRepulsionRight = DEFAULT_WALLREPULSION_RIGHT;
         myWallRepulsionDown = DEFAULT_WALLREPULSION_DOWN;
         myWallRepulsionLeft = DEFAULT_WALLREPULSION_LEFT;
-    }
-
-    public static UserInput getInstance(final Canvas view, final Model model) {
-        if (instance == null) {
-            synchronized (UserInput.class) {
-                if (instance == null) {
-                    instance = new UserInput(view, model);
-                }
-            }
-        }
-
-        return instance;
     }
 
     public void update(final double elapsedTime) {

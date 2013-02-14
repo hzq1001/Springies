@@ -26,7 +26,7 @@ public class Viscosity extends Force {
 
     public static Viscosity generator (Scanner line)
     {
-        double scale = line.nextDouble();
+        double scale = line.hasNextDouble() ? line.nextDouble() : DEFAULT_SCALE;
         return new Viscosity(scale);
     }
 

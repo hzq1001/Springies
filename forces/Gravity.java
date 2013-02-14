@@ -26,8 +26,8 @@ public class Gravity extends Force {
     }
 
     public static Gravity generator (Scanner line) {
-        double angle = line.nextDouble();
-        double magnitude = line.nextDouble();
+        double angle = line.hasNextDouble()? line.nextDouble() : DEFAULT_ANGLE;
+        double magnitude = line.hasNextDouble()? line.nextDouble() : DEFAULT_MAGNITUDE;
         return new Gravity(angle, magnitude);
     }
 

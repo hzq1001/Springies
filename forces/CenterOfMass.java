@@ -29,8 +29,8 @@ public class CenterOfMass extends Force {
     }
 
     public static CenterOfMass generator (Scanner line) {
-        double magnitude = line.nextDouble();
-        double exponent = line.nextDouble();
+        double magnitude = line.hasNextDouble() ? line.nextDouble() : DEFAULT_MAGNITUDE;
+        double exponent  = line.hasNextDouble() ? line.nextDouble() : DEFAULT_EXPONENT;
         return new CenterOfMass(magnitude, exponent);
     }
 

@@ -3,6 +3,7 @@ package simulation.assembly;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import simulation.Model;
@@ -21,6 +22,8 @@ public class Spring extends Sprite {
     // reasonable default values
     public static final Pixmap DEFUALT_IMAGE = new Pixmap("spring.gif");
     public static final int IMAGE_HEIGHT = 20;
+	private static final double DEFAULT_REST_LENGTH = 100;
+	private static final double DEFAULT_KS = 0.1;
 
     private Mass myStart;
     private Mass myEnd;
@@ -68,11 +71,20 @@ public class Spring extends Sprite {
     }
 
     public static Spring generator (Scanner line, Model model) {
-        Mass m1 = model.getMyMassesMap().get(line.nextInt());
-        Mass m2 = model.getMyMassesMap().get(line.nextInt());
-        double restLength = line.nextDouble();
-        double ks = line.nextDouble();
-        return new Spring(m1, m2, restLength, ks);
+    	
+    	try {
+	        Mass m1 = model.getMyMassesMap().get(line.nextInt());
+	        Mass m2 = model.getMyMassesMap().get(line.nextInt());
+	        double restLength = line.hasNextDouble() ? line.nextDouble() : DEFAULT_REST_LENGTH;
+	        double ks         = line.hasNextDouble() ? line.nextDouble() : DEFAULT_KS;
+	        return new Spring(m1, m2, restLength, ks);
+    	}
+    	catch (NoSuchElementException e) {
+    		System.out.println("File read error. Spring must specify masses: " + e.getMessage());
+    		System.exit(0);
+    	}
+    	return null;
+        
     }
 
     /**
